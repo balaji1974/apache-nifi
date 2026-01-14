@@ -2,7 +2,6 @@
 # Apache Nifi
 
 ## What is Apache Nifi
-
 ```xml 
 Apache NiFi is an open-source, visual data integration platform that automates 
 the flow of data between systems, allowing users to design, control, and 
@@ -11,6 +10,12 @@ supporting batch and real-time scenarios with features like data provenance,
 security, and scalability. Originally developed by the NSA, it provides a flow-based 
 programming model to move, transform, and route data efficiently, acting as a 
 powerful tool for data engineering and pipeline automation. 
+
+Key Terms:
+Data flow: Moving data from source to destination. Data can be of any format 
+like csv, json, xml, http data, image, videoes, telemetry etc
+Data Pipeline: Movement and transformation of data content from source to destination 
+ETL: Extract, Transform, Load
 
 
 Key Features
@@ -40,13 +45,58 @@ Real-time data streaming and processing.
 Data integration for Big Data systems (e.g., Kafka, Hadoop).
 Cybersecurity, observability, and generative AI data pipelines. 
 
+Why choose a framework? (4Vs)
+Volume, Velocity, Variety, Veracity (messiness and trustworthiness)
 
 ```
 ![alt text](https://github.com/balaji1974/apache-nifi/blob/main/Nifi-Core.png)
 
+## Installing Nifi on Mac
+```xml 
+1. Download Nifi
+https://nifi.apache.org/download/
+Download the binary version
+and unzip and move to your the folder of your choice
+
+2. Start Nifi
+Go the folder Nifi base folder and run the command
+./bin/nifi.sh start
+tail -f ./logs/nifi-app.log
+
+3. Set Password
+The default user name and password can be viewed on the log file
+at /logs/nifi-app.log
+Search for the lines Generated Username
+In my case I have this:
+Generated Username [***username***]
+Generated Password [***password***]
+
+You can change the password by using the below comm
+./bin/nifi.sh set-single-user-credentials USERNAME PASSWORD
+
+Stop Nifi
+./bin/nifi.sh stop
+
+and Start it back 
+./bin/nifi.sh start
+
+
+4. Go to Nifi console
+https://localhost:8080/nifi
+Login using the user id and password
+
+5. Stop Nifi
+./bin/nifi.sh stop
+
+```
+
+## 
+```xml 
+
+```
 
 ### Reference
 ```xml
 https://www.youtube.com/playlist?list=PL55symSEWBbMBSnNW_Aboh2TpYkNIFMgb
-
+http://www.dvstechnologies.in/apache-nifi/
 ```

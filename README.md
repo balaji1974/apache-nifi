@@ -70,6 +70,8 @@ Search for the lines Generated Username
 In my case I have this:
 Generated Username [***username***]
 Generated Password [***password***]
+* this is generated only once during first run 
+and must be changed. 
 
 You can change the password by using the below comm
 ./bin/nifi.sh set-single-user-credentials USERNAME PASSWORD
@@ -90,7 +92,30 @@ Login using the user id and password
 
 ```
 
-## 
+## First Nifi Process - Copy Files
+```xml 
+1. Drag a Processer
+2. Search for getFile
+3. Click on the properties -> Input directory 
+4. Enter a source folder path 
+
+5. Drag another Processer
+6. Search for putFile
+7. Click on the properties -> Directory 
+8. Enter a destination folder path 
+9. Relationship Tab
+10. Failure -> Terminate
+11. Success -> Terminate
+
+12. Pull the arrow from Input Processor to Output Processor
+13. Start both processes by righ click + start
+
+14. Put any file on the source folder and its 
+immediately copied to the destination folder
+
+```
+
+## Core Nifi Terminologies
 ```xml 
 
 ```

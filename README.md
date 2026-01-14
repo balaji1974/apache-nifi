@@ -42,7 +42,7 @@ Cybersecurity, observability, and generative AI data pipelines.
 
 
 ```
-
+![alt text](https://github.com/balaji1974/apache-nifi/blob/main/Nifi-Core.png)
 
 
 ### Reference

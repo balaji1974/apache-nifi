@@ -256,6 +256,47 @@ Check this by importing the template
 GenerateAndLog.xml
 ```
 
+
+## Replace Text Processor 
+```xml 
+ReplaceText Processor modifies the content (body) of a FlowFile by finding text matching 
+a regular expression or a literal string and replacing it with specified text, or 
+by prepending/appending text, effectively changing data as it flows through the system. 
+It's crucial for data cleansing, format conversion (like adding leading zeros to dates), 
+extracting specific values, or preparing data for downstream processors, but it works on content, 
+not attributes. 
+
+Key Functions & Uses
+--------------------
+Search & Replace: Replaces occurrences of a pattern with new text, using regex capture groups 
+(e.g., $1) for dynamic replacements.
+
+Data Transformation: Cleans up data by removing unwanted characters (e.g., units like "cm" from 
+numbers) or adding leading zeros to single-digit months/days.
+
+Content Modification: Can prepend or append text to the entire FlowFile or individual lines.
+
+Value Extraction: Used in conjunction with other processors to prepare data for things like 
+SQL INSERT statements by replacing placeholders with actual values. 
+
+Important Considerations
+------------------------
+Evaluation Mode: Can be set to "Line-by-Line" or "Entire text." "Entire text" loads the whole 
+file into memory, which can cause OutOfMemoryErrors with large files; "Line-by-Line" is better 
+for large datasets.
+
+Not for Attributes: It modifies the FlowFile's content, not its attributes; use the UpdateAttribute 
+processor for attributes.
+
+Performance: For complex JSON/Record transformations, ConvertRecord or JoltTransformRecord might be 
+more efficient than multiple ReplaceText processors. 
+
+Check this by importing the template
+ReplaceText.xml
+```
+
+
+
 ### Reference
 ```xml
 https://www.youtube.com/playlist?list=PL55symSEWBbMBSnNW_Aboh2TpYkNIFMgb

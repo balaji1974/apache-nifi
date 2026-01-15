@@ -182,11 +182,8 @@ Stardard configurations are mostly under settings and scheduling tab.
 
 ```
 
-## Processors List
+## Processors List 
 ```xml 
-Example 
-Generate flowfile is used to generate random data or custom data
-Log Attribute processors logs the attributes of the flow file
 
 General list of all processors and their details can be found in:
 https://nifi.apache.org/components/
@@ -194,9 +191,70 @@ https://nifi.apache.org/components/
 When chaining processors backpressure is an important attribute to 
 monitor and fine tune
 
+```
+
+## Export And Import Template
+```xml 
+
+Export a NiFi Template
+----------------------
+Select the flow: On the NiFi canvas, select all the components of the flow you 
+want to template. You can do this by holding the Shift key and clicking or 
+dragging a selection box around them.
+
+Create the template: In the top-left Operate Palette, click the Create Template 
+icon (often a template icon with a green plus sign).
+
+Name the template: A dialog box will appear. Give the template a unique name and 
+an optional description, then click CREATE.
+
+Download the template (Export): After creation, go to the top-right menu (often a 
+hamburger menu or "Manage Templates" icon).
+
+Manage templates: In the Template Management dialog box, find your newly created 
+template in the list.
+
+Download as XML: Click the Download icon (often a download arrow symbol) for that 
+specific template. This will save the template as a .xml file to your local machine. 
+
+Import a NiFi Template
+----------------------
+Access the Upload Template dialog: In the top-left Operate Palette of the target NiFi 
+instance, click the Upload Template icon (often a template icon with an upward arrow).
+
+Select the file: In the Upload Template dialog, click the file finder icon to browse and 
+select the .xml template file you exported earlier from your local machine.
+
+Upload: Click the Upload button in the dialog box to import the template into the NiFi 
+instance. A success message will confirm the import. 
+
+Use the Imported Template
+-------------------------
+Drag the Template icon: From the top toolbar of the NiFi UI, drag the Template icon 
+onto the canvas.
+
+Select the template: A dialog box will open, prompting you to select the desired template 
+from a dropdown list of all available templates (including the one you just imported).
+
+Add to canvas: Select the template and click ADD to instantiate the flow on your canvas. 
+
+Alternative Method: NiFi Registry
+---------------------------------
+For managing templates across multiple NiFi instances or for version control, 
+a more robust method is using a dedicated Apache NiFi Registry. This allows you to 
+version-control process groups and share them seamlessly without manual XML file transfers. 
 
 ```
 
+## Generate and Log Processor 
+```xml 
+What it does 
+Generate flowfile is used to generate random data or custom data
+Log Attribute processors logs the attributes of the flow file
+
+Check this by importing the template
+GenerateAndLog.xml
+```
 
 ### Reference
 ```xml

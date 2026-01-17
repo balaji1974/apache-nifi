@@ -602,7 +602,7 @@ Run it and check the file name created in the output folder with its changed nam
 
 ```
 
-## Nifi Funnels 
+## Nifi Funnel
 ```xml
 In Apache NiFi, a funnel is a component used to combine data from several incoming 
 connections into a single outgoing connection, acting as a junction point to streamline data flows 
@@ -637,6 +637,28 @@ Funnel.xml
 Run it to see 2 generate flowflie process sending output to the same funnel that is 
 sent to a downstream logattribute processor.
 
+```
+
+## Nifi Instance Monitoring
+```xml
+Monitoring NiFi involves using its built-in UI for real-time flow status, 
+bulletins (errors/warnings), and data provenance, alongside Reporting Tasks 
+(like SiteToSiteBulletinReportingTask) to push metrics to external systems, 
+and integrating with tools like Prometheus/Grafana for dashboards, or custom 
+solutions like MonitoFi, to track key metrics like queue depth, throughput, 
+processor health, and FlowFile age for performance tuning and anomaly detection. 
+
+Built-in NiFi Monitoring (UI)
+-----------------------------
+Processors & Connections: View real-time stats (data processed, throughput), 
+status (running/stopped), and queue depth directly on the canvas.
+
+Bulletins: See error/warning notifications as icons on components; access the 
+Bulletin Board for detailed, filterable messages.
+
+Data Provenance: Track FlowFile lineage and events for auditing and debugging.
+
+NiFi Summary: Get an overview of all components and their status across the cluster. 
 ```
 
 

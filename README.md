@@ -244,6 +244,10 @@ For managing templates across multiple NiFi instances or for version control,
 a more robust method is using a dedicated Apache NiFi Registry. This allows you to 
 version-control process groups and share them seamlessly without manual XML file transfers. 
 
+
+Sample Nifi Templates can be found in the below link:
+https://cwiki.apache.org/confluence/display/nifi/example+dataflow+templates
+
 ```
 
 ## Generate and Log Processor 
@@ -595,6 +599,43 @@ and output port on the sending process group and connected the 2 processes.
 ProcessGroupTest.xml
 
 Run it and check the file name created in the output folder with its changed name as before.
+
+```
+
+## Nifi Funnels 
+```xml
+In Apache NiFi, a funnel is a component used to combine data from several incoming 
+connections into a single outgoing connection, acting as a junction point to streamline data flows 
+and improve canvas organization. 
+
+Key Purposes and Benefits
+--------------------------
+Flow Consolidation: A funnel allows multiple data streams (FlowFiles) from different processors 
+or sources to converge into one combined stream, leading to a single downstream destination.
+
+Organization and Readability: Instead of drawing numerous connections to a single processor, 
+a DataFlow Manager (DFM) can route them all to a funnel and then have just one connection from the 
+funnel to the next component. This helps keep complex data flows neat and easier to manage.
+
+Simplified Maintenance: If a downstream processor needs to be replaced, only the single connection 
+from the funnel needs to be moved to the new processor, rather than manually moving multiple individual 
+connections.
+
+Centralized Queue Management: Each connection to the funnel has its own queue, but the data is combined 
+into a single logical queue managed by the connection leaving the funnel. This allows for centralized 
+management of backpressure and data prioritization settings for all incoming data.
+
+Debugging Aid: Funnels can be used as temporary endpoints during debugging to quickly test intermediate 
+results of a flow without needing a final destination processor. 
+
+In essence, a funnel is a simple pass-through component that provides a single point of entry for data 
+coming from disparate sources into a unified flow logic. For more details, consult the Apache NiFi User Guide. 
+
+Check this by importing the template
+Funnel.xml
+
+Run it to see 2 generate flowflie process sending output to the same funnel that is 
+sent to a downstream logattribute processor.
 
 ```
 

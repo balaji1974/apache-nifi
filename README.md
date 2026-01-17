@@ -735,7 +735,7 @@ Database Type: MySQL
 Table Name: customers
 Record Writer: Create a new Record writer -> JsonRecordSetWriter and enable it
 Max-value Columns: customerNumber # this will help us not to import the same records again and 
-will be imported only when this record gets incremented
+will be imported only when this attribute gets incremented
 
 Finally Apply
 

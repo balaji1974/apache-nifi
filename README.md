@@ -295,6 +295,56 @@ Check this by importing the template
 ReplaceText.xml
 ```
 
+## Extract Text Processor 
+```xml 
+The Apache NiFi ExtractText Processor uses regular expressions (regex) to pull specific 
+text data from a FlowFile's content and assign it to FlowFile attributes for routing or 
+further processing, with configurable options for named capture groups to organize results 
+into distinct attributes like attribute.1, attribute.2, etc., effectively transforming 
+unstructured text into structured metadata. It's a core component for turning text-based 
+data into actionable attributes for data pipelines, though for complex document types 
+(PDF, Word), you might need custom processors like those powered by Apache Tika. 
+
+Key Functionality
+-----------------
+Attribute Extraction: Evaluates regex patterns against FlowFile content.
+
+Dynamic Properties: You define custom properties (e.g., my_data), where the property name 
+becomes the attribute name and the regex defines what gets captured.
+
+Named Capture Groups: Enabling this creates attributes with names matching your capture groups 
+(e.g., my_data.name, my_data.value).
+
+Indexed Capture Groups: Without named groups, results go into attributeName.1, attributeName.2, 
+etc., plus the full match in attributeName.0. 
+
+How it Works (Simplified Example)
+---------------------------------
+Input Data: A FlowFile with content like ID=12345, Name=TestUser.
+
+Configuration (Named Groups):
+Add Property: user_id with regex ID=(\d+)
+Add Property: user_name with regex Name=(.*)
+
+Output Attributes: user_id=12345, user_name=TestUser. 
+
+Common Use Cases
+----------------
+Extracting IDs, timestamps, or specific fields from logs or flat files.
+Parsing simple structured text into attributes for routing decisions. 
+
+Advanced/Related Processors
+---------------------------
+ExtractDocumentText: For extracting text from actual binary documents (PDF, DOCX) 
+using Apache Tika.
+
+SplitText: Often used before ExtractText to break large files into smaller, line-by-line 
+FlowFiles for easier processing. 
+
+Check this by importing the template
+ExtractText.xml
+```
+
 
 
 ### Reference

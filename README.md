@@ -661,6 +661,100 @@ Data Provenance: Track FlowFile lineage and events for auditing and debugging.
 NiFi Summary: Get an overview of all components and their status across the cluster. 
 ```
 
+## Nifi Registry and Version Control
+```xml
+Apache NiFi Registry is a complementary application to Apache NiFi that provides a 
+central place to store, manage, and version-control shared resources, especially data flows 
+(Processor Groups) and extensions, across multiple NiFi or MiNiFi instances, enabling 
+collaborative development, CI/CD pipelines, and easier promotion of flows between environments 
+(Dev, Test, Prod). It acts like a Git repository for your NiFi flows, allowing you to track changes, 
+roll back to previous versions, and manage flow lifecycles efficiently. 
+
+Key Features & Functions:
+------------------------
+Flow Registry: Stores and manages versioned NiFi data flows (Processor Groups).
+
+Version Control: Enables starting version control on Processor Groups, committing changes, 
+and rolling back to earlier versions.
+
+Central Repository: A central location for sharing resources like flows and bundles (extensions).
+
+CI/CD Integration: Facilitates automated deployment of flows from development to production environments, 
+managing sensitive data via parameter contexts.
+
+Bucket & Policy Management: Organizes flows into "buckets" (like projects) and manages user access 
+and permissions (policies).
+
+NiFi Integration: Seamlessly integrates with NiFi, allowing users to store, retrieve, and upgrade 
+flows directly from the NiFi UI. 
+
+How it Works:
+-------------
+Connect NiFi to Registry: You configure your NiFi instance(s) to point to the NiFi Registry's URL.
+
+Version a Process Group: In NiFi, you right-click a Processor Group and select "Version" > 
+"Start version control," linking it to a bucket in the Registry.
+
+Commit Changes: You commit changes (like adding processors or modifying configurations) to the Registry.
+
+Promote Flows: You can then promote validated flows from the Registry to other NiFi instances 
+or environments. 
+
+In essence, NiFi Registry brings discipline and lifecycle management to data flow development, 
+preventing issues common with manual template management and supporting enterprise-level data 
+pipeline operations. 
+
+```
+
+## Nifi Database Connections (MySQL to json file)
+```xml
+1. Start MySQL database, in my case on docker
+docker pull mysql
+docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=<my-password> -d mysql
+
+2. Connect to the database using MySQLWorkbench and run the queries given in the 
+mysqlsampledatabase.sql file under the 'sample db' folder.
+
+3. Download the mysql jdbc driver and copy to the nifi's lib folder 
+
+4. Go to Controller Settings -> Management Controller Settings -> Add (+)
+
+5. Search for DBCPConnectionPool add it
+
+6. In the properties of DBCPConnectionPool
+Database Connection URL: jdbc:mysql://localhost:3306/classicmodels?autoReconnect=true&useSSL=false
+Database Driver Class Name: com.mysql.cj.jdbc.Driver
+Datauser: root
+Password: <your root password>  #Dont do this on production
+Save and Enable
+
+7. Create a new Processor -> QueryDatabaseTableRecord Processor
+In the properties add the following:
+Database Connection Pooling Service=DBCPConnectionPool
+Database Type: MySQL
+Table Name: customers
+Record Writer: Create a new Record writer -> JsonRecordSetWriter and enable it
+Max-value Columns: customerNumber # this will help us not to import the same records again and 
+will be imported only when this record gets incremented
+
+Finally Apply
+
+8. Create another processor -> PutFile 
+In the properties add the following:
+<your-file-output-path>
+
+9. Connect both these processors.
+
+10. Start both processors and see the table being queried and 
+outputted as json file in the output directory.
+
+11. Check this by importing the below template and running it
+MySqlToJson.xml
+
+```
+
+
+
 
 ### Reference
 ```xml
@@ -668,4 +762,5 @@ https://www.youtube.com/playlist?list=PL55symSEWBbMBSnNW_Aboh2TpYkNIFMgb
 http://www.dvstechnologies.in/apache-nifi/
 https://nifi.apache.org/
 https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html
+https://www.youtube.com/watch?v=OHLYJUOTaYc
 ```

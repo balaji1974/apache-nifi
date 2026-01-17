@@ -408,6 +408,62 @@ creates a json file as above.
 
 ```
 
+## Create Output File
+```xml 
+The Apache NiFi PutFile processor is a core component used to write the content of a FlowFile 
+to the local file system. It is a fundamental building block for data ingest and data flow management 
+within a single NiFi instance. 
+
+Key Features and Configuration
+------------------------------
+Functionality: Transfers the content of an incoming FlowFile to a specified directory on the local disk.
+
+Input/Output: Requires an inbound connection for FlowFiles and transfers successful write operations to a 
+success relationship and failures to a failure relationship.
+
+Directory: A mandatory property where the files are written. The path supports the NiFi Expression Language, 
+allowing for dynamic directory creation based on FlowFile attributes (e.g., /data/${path}).
+
+Filename: The processor uses the filename attribute of the FlowFile to determine the name of the output file.
+
+Conflict Resolution Strategy: This property determines what happens if a file with the same name already exists 
+in the output directory:
+replace: Deletes the existing file and writes the new one.
+ignore: Leaves the existing file untouched and routes the incoming FlowFile to the success relationship 
+(effectively ignoring the new data).
+fail: Routes the incoming FlowFile to the failure relationship.
+
+Create Missing Directories: A boolean property that, if set to true (default), automatically creates any 
+missing destination directories. If false, the FlowFile is penalized and routed to failure.
+
+Permissions/Owner/Group: Optionally allows setting file system permissions, owner, and group on the output 
+file using FlowFile attributes and Expression Language. 
+
+Important Considerations
+------------------------
+Local File System Only: The PutFile processor can only write to the local file system of the machine where 
+the NiFi instance is running. For remote systems (like an SFTP server or cloud storage), you must use specific 
+processors such as PutSFTP, PutFTP, or cloud-specific options.
+
+Expression Language: Utilizing the NiFi Expression Language is key to dynamic file naming and pathing, 
+ensuring unique files are created or correctly handled (e.g., using a timestamp or original filename attribute).
+
+Permissions: Ensure that the operating system user running the NiFi process has the necessary permissions to 
+write to the specified directory. Permission issues are a common cause of the processor routing FlowFiles 
+to the failure relationship. 
+
+Check this by importing the template
+CreateOutputFile.xml
+
+This template sends the content of the flowfile to an output folder.
+The output folder can be configured on the PutFile processor's 
+property called Directory, in my case I use 
+/Users/balaji/apache-nifi/output
+
+
+```
+
+
 ### Reference
 ```xml
 https://www.youtube.com/playlist?list=PL55symSEWBbMBSnNW_Aboh2TpYkNIFMgb

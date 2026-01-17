@@ -504,7 +504,9 @@ it must happen sequentially in different processors or steps.
 
 Insert the updateattribute processor and
 Add an attribute called filename with the following expression as its value:
-{filename}-${now():toNumber():format('dd-MM-yyyy')}.json
+${now():toNumber():format('yyyy-MM-dd-HH-mm-ss')}-${filename}.json
+Eg. file name that would be generated:
+2026-01-17-13-57-29-2bcabb8e-4649-43a4-bc94-4cff289af4ec.json
 
 Insert this processor between the previously created ReplaceText and PutFile processors
 

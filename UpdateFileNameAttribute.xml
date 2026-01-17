@@ -1118,7 +1118,7 @@
                     </entry>
                     <entry>
                         <key>filename</key>
-                        <value>${filename}-${now():toNumber():format('dd-MM-yyyy')}.json</value>
+                        <value>${now():toNumber():format('yyyy-MM-dd-HH-mm-ss')}-${filename}.json</value>
                     </entry>
                 </properties>
                 <retryCount>10</retryCount>
@@ -1139,5 +1139,5 @@
             <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
         </processors>
     </snippet>
-    <timestamp>01/17/2026 13:52:01 AST</timestamp>
+    <timestamp>01/17/2026 13:59:58 AST</timestamp>
 </template>

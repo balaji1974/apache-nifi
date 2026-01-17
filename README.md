@@ -463,6 +463,63 @@ property called Directory, in my case I use
 
 ```
 
+## UpdateAttribute Processor 
+```xml 
+The Apache NiFi UpdateAttribute Processor modifies FlowFile attributes (metadata) using 
+user-defined properties, supporting both basic (global) changes and advanced conditional logic 
+with the Expression Language (NEL), allowing adding, updating, or deleting attributes based on rules, 
+which is crucial for routing, transforming, and enriching data streams. You configure it by adding 
+key-value pairs for attributes, using Delete Attributes Expression for removal (regex supported), and 
+leveraging the "Advanced" UI for conditional rules based on NEL. 
+
+Key Functions & Usage
+---------------------
+Add/Modify Attributes: Define new property_name=value pairs or overwrite existing ones.
+
+Conditional Logic: Use the Advanced UI to set rules (conditions + actions) for specific FlowFiles, 
+acting like if/else statements.
+
+Attribute Deletion: Use a regular expression in the Delete Attributes Expression property to remove attributes 
+by name (e.g., user.* to delete username, userId). 
+
+How It Works
+------------
+Basic Usage: Add properties directly in the processor configuration for global changes to all FlowFiles.
+
+Advanced Usage (Rules): Click "Advanced" in the configure dialog to create rules with conditions (NEL expressions) 
+and actions (add/update/delete).
+
+Expression Language (NEL): Powerful for dynamic values (e.g., ${filename}, ${now()}) and complex comparisons, 
+allowing data-driven attribute manipulation. 
+
+Example Use Cases
+-----------------
+Setting a folder_name attribute based on the file_type.
+Adding a timestamp attribute using ${now()}.
+Deleting sensitive attributes like password if they match a pattern. 
+
+Important Note
+You cannot create an attribute and then modify it within the same UpdateAttribute processor in a single step; 
+it must happen sequentially in different processors or steps. 
+
+Insert the updateattribute processor and
+Add an attribute called filename with the following expression as its value:
+{filename}-${now():toNumber():format('dd-MM-yyyy')}.json
+
+Insert this processor between the previously created ReplaceText and PutFile processors
+
+Check this by importing the template
+UpdateFileNameAttribute.xml
+
+This template modifies the file name of the flowfile file before it is sent to an output folder.
+The output folder is already configured on the PutFile processor's 
+property called Directory, in my case as below from the previous example
+/Users/balaji/apache-nifi/output
+
+Run it and check the file name created in the output folder with its changed name
+```
+
+
 
 ### Reference
 ```xml

@@ -343,13 +343,37 @@ FlowFiles for easier processing.
 
 Check this by importing the template
 ExtractText.xml
+
+This template extracts the content of the comma seperated flow file and assigns it to 
+varibale prefixed by csv.1, csv.2 and so on
 ```
 
+## Expression Language
+```xml 
+Refer expression language guid
+https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html
 
+We can read the variables in the flowfile using expression language as below:
+{
+    "field1": "${csv.1}",
+    "field2": "${csv.2}",
+    "field3": "${csv.3}",
+    "field4": "${csv.4}"
+}
+
+Check this by importing the template
+JsonConverter.xml
+
+This template extracts the content of the varibale in the flowfile and 
+creates a json file as above.
+
+
+```
 
 ### Reference
 ```xml
 https://www.youtube.com/playlist?list=PL55symSEWBbMBSnNW_Aboh2TpYkNIFMgb
 http://www.dvstechnologies.in/apache-nifi/
 https://nifi.apache.org/
+https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html
 ```

@@ -350,7 +350,45 @@ varibale prefixed by csv.1, csv.2 and so on
 
 ## Expression Language
 ```xml 
-Refer expression language guid
+The Apache NiFi Expression Language (EL) is a powerful, domain-specific language used within 
+the NiFi application to dynamically reference, compare, and manipulate dataflow attributes, 
+variables, and system properties. 
+
+Core Functionality and Purpose
+------------------------------
+Dynamic Configuration: EL is primarily used in processor properties to make their behavior dynamic, 
+allowing components to adapt to the specific data they are processing.
+
+Attribute Manipulation: It provides the ability to access metadata (attributes) associated with a 
+FlowFile (the data record within NiFi's flow) and perform various operations like type conversion, 
+string manipulation, and mathematical calculations.
+
+Conditional Logic and Routing: Expressions can be used to evaluate conditions (e.g., checking if an 
+attribute exists, comparing values) to determine how data should be routed or processed, often in 
+components like RouteOnContent or UpdateAttribute.
+
+Accessing System Information: Users can access system properties and environment variables using EL 
+for more flexible dataflow configuration. 
+
+Syntax and Structure
+--------------------
+Expressions are enclosed within the ${ ... } syntax. They often take the form ${attributeName:function()}. 
+
+Chaining Functions: Multiple functions can be chained together, where the output of one function becomes 
+the input (subject) of the next function. 
+For example: ${filename:toUpper():equals('HELLO.TXT')}.
+
+Data Types: The language supports several data types, including String, Number, Decimal, Date, and Boolean, 
+and generally performs automatic type coercion when needed.
+
+Hierarchy: When an expression is evaluated, NiFi searches for the referenced property/variable in a specific 
+order:
+FlowFile attributes.
+Process Group variables (and up the hierarchy to the root process group).
+Custom properties file/System environment variables. 
+
+For a detailed list of functions and usage examples, refer to the official Apache NiFi 
+Expression Language Guide at the below link: 
 https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html
 
 We can read the variables in the flowfile using expression language as below:

@@ -521,6 +521,82 @@ property called Directory, in my case as below from the previous example
 Run it and check the file name created in the output folder with its changed name
 ```
 
+## Process Group 
+```xml 
+In Apache NiFi, a Process Group is a mechanism used to logically group a set of components 
+(processors, funnels, ports, other process groups) into a single, manageable unit. 
+This approach helps in organizing complex dataflows, improving their readability and maintainability. 
+The root canvas of a NiFi instance is itself a top-level Process Group. 
+
+Key Features and Functionality
+------------------------------
+Hierarchy: Process Groups support a hierarchical structure, allowing you to nest groups within 
+other groups (similar to a directory structure). This enables dataflow managers (DFMs) to reason 
+about the dataflow at varying levels of abstraction.
+
+Encapsulation: Components inside a Process Group operate together as a cohesive unit. You can start, 
+stop, enable, or disable all components within a group simultaneously via the group's context menu.
+
+Ports: Data is transferred into and out of a Process Group using Input Ports and Output Ports, 
+respectively.
+An Input Port within a Process Group receives FlowFiles from an upstream component 
+(which can be in the parent group).
+An Output Port sends FlowFiles to a downstream component (also typically in the parent group).
+Ports provide a clear, defined interface for data exchange with the outside flow.
+
+Remote Process Groups (RPGs): While a standard Process Group organizes flows within a single NiFi 
+instance, a Remote Process Group is used to transfer data (via Site-to-Site protocol) to a port on 
+a different, remote NiFi instance or cluster.
+
+Configuration and Variables: Process Groups can have their own specific configurations, 
+including the assignment of Parameter Contexts, which allow for managing environment-specific variables 
+that can be referenced by components within that group.
+
+Reusability and Versioning: You can create a template from a selected Process Group to reuse 
+that specific sub-flow in other parts of the current canvas or export it to other NiFi instances. 
+Process Groups can also be placed under version control using a NiFi Registry, allowing for tracking 
+changes and deploying specific versions across different environments (e.g., staging to production).
+
+Monitoring: The NiFi UI provides monitoring statistics for each Process Group, including the number 
+and size of FlowFiles currently in the queues within the group, as well as the data that has passed 
+through its ports over a specific time period. 
+
+Common Use Cases
+----------------
+Logical Organization: Grouping processors that handle a specific data source or perform a particular 
+business function (e.g., "Customer Data Ingest," "Elasticsearch Indexing").
+
+Abstraction: Hiding complex, detailed logic within a Process Group so that the top-level flow remains 
+clean and easy to understand.
+
+Module Development: Creating reusable, self-contained dataflow modules that can be easily templated 
+and shared. 
+
+Using Process Groups:
+--------------------
+1. Click on the process group and drag it on the canvas
+2. Give it a name
+3. Drag all components that need to be moved to the process group by holding shift + command key and dragging 
+the processes into the process group. You can drag all components by holding the shif key + command and 
+selecting all component first before dragging. When we are on top of the process group a blue border appears 
+which helps us to drag our processes correctly into the process group. 
+4. You can start/stop all processes within process group by selecting the process group and clicking the 
+start/stop button.
+5. You can enter the process group by double clicking on the process group.
+6. To come out of a process group you can right click and click Leave process group to come outside of the group 
+or by clicking the navigation links at the bottom of the canvas. 
+7. You can duplicate a process group with cnt+C and cnt+V (all the processes and its configuration gets duplicated)
+8. You can move a process group by right clicking it and moving to the parent group
+
+9. We divided our processes into 2 process groups, created an input port on the receiving process group 
+and output port on the sending process group and connected the 2 processes.
+
+10. Check this by importing the template
+ProcessGroupTest.xml
+
+Run it and check the file name created in the output folder with its changed name as before.
+
+```
 
 
 ### Reference

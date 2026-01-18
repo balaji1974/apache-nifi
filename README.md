@@ -713,7 +713,7 @@ docker pull mysql
 docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=<my-password> -d mysql
 
 2. Connect to the database using MySQLWorkbench and run the queries given in the 
-mysqlsampledatabase.sql file under the 'sample db' folder.
+mysqlsampledatabase.sql file under the 'sample-db' folder.
 
 3. Download the mysql jdbc driver and copy to the nifi's lib folder 
 
@@ -751,10 +751,50 @@ outputted as json file in the output directory.
 11. Check this by importing the below template and running it
 MySqlToJson.xml
 
+Note: The state can be reset to query the table from beginning by 
+right clicking on the QueryDatabaseTableRecord -> View State -> Clear State
+
 ```
 
+## Nifi Database Connections (Read CSV file and insert into MySQL DB)
+```xml
+1. Start MySQL database, in my case on docker
+docker pull mysql
+docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=<my-password> -d mysql
 
+2. Connect to the database using MySQLWorkbench and run the query given in the 
+logistics.sql file under the 'sample-db' folder.
 
+3. Make sure you have the logistics_shipments_dataset.csv in the dataset folder 
+
+4. Download the mysql jdbc driver from 
+and copy to the nifi's lib folder 
+
+5. Go to Controller Settings -> Management Controller Settings -> Add (+)
+
+6. Search for LogisticsConnectionPool add it
+
+7. In the properties of LogisticsConnectionPool
+Database Connection URL: jdbc:mysql://localhost:3306/logistics?autoReconnect=true&useSSL=false
+Database Driver Class Name: com.mysql.cj.jdbc.Driver
+Datauser: root
+Password: <your root password>  #Dont do this on production
+Save and Enable
+
+8. Also create a CSVReader Controller Service 
+Properties:
+Schema Access Strategy: Use String Fields from Header
+
+9. Enable both these Controller Services.
+
+10. The processes used are as follows:
+GetFile -> SplitText -> ConvertRecord -> ConvertJsonToSQL -> PutSQL 
+* Please set all the property values as given in each of the processors 
+
+11. Check this by importing the below template and running it
+CsvToMySQL.xml
+
+```
 
 ### Reference
 ```xml
@@ -763,4 +803,5 @@ http://www.dvstechnologies.in/apache-nifi/
 https://nifi.apache.org/
 https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.html
 https://www.youtube.com/watch?v=OHLYJUOTaYc
+https://www.youtube.com/watch?v=8KxcAiNdqvw
 ```

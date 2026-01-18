@@ -795,6 +795,12 @@ GetFile -> SplitText -> ConvertRecord -> ConvertJsonToSQL -> PutSQL
 CsvToMySQL.xml
 
 ```
+## What Nifi ? Building custom processors
+```xml
+Check the below link and start building
+https://medium.com/@tomerdayan168/build-your-processors-in-nifi-7bb0f217ed75
+
+```
 
 ### Reference
 ```xml
